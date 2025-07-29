@@ -12,11 +12,6 @@ LOGGING_CONFIG = {
             "class": "logging.StreamHandler",
             "formatter": "default",
         },
-        "file": {
-            "class": "logging.FileHandler",
-            "filename": "app.log",
-            "formatter": "default",
-        },
     },
     "loggers": {
         "": {
