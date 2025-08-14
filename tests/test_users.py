@@ -16,7 +16,10 @@ def get_token(client: TestClient, email: str):
 
 
 def test_read_all_users(client: TestClient, test_user):
-    response = client.get("/users/")
+    response = client.get(
+        "/users/",
+        headers={"Authorization": f"Bearer {test_user['token']}"}
+    )
 
     assert response.status_code == 200
     data = response.json()

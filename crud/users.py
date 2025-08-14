@@ -11,12 +11,14 @@ from security.hashing import get_password_hash
 
 
 
-async def get_user_by_email(email:str, db: AsyncSession) -> Optional[User_db]:
+async def get_user_by_email(email:str, db: AsyncSession) -> Optional[UserOut]:
     result = await db.execute(
-        select(User_db).filter(User_db.email == email)
+        select(User_db).options(noload(User_db.tasks)).filter(User_db.email == email)
     )
-    return result.scalar_one_or_none()
-
+    user =  result.scalar_one_or_none()
+    if not user:
+        return None
+    return user
 
 
 async def get_users(db:AsyncSession) -> Optional[List[UserOut]]:
